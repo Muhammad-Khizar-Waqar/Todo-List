@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
 import { Plus, CheckCircle2 } from 'lucide-react';
 import TodoList from './TodoList';
 import FiltersBar from './FiltersBar';

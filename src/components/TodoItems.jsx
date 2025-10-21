@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
-import { Checkbox } from './ui/checkbox';
+import { Checkbox } from './ui/Checkbox';
 import { Calendar, Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { Badge } from './ui/Badge';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
 
 const priorityColors = {
   low: 'bg-blue-100 text-blue-800 border-blue-200',

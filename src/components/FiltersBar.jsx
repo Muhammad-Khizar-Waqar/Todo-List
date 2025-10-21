@@ -1,12 +1,12 @@
-import { Input } from './ui/input';
-import { Button } from './ui/button';
+import { Input } from './ui/Input';
+import { Button } from './ui/Button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
+} from './ui/Select';
 import { Search, SortAsc } from 'lucide-react';
 
 export default function FiltersBar({

@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { Label } from './ui/label';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/Dialog';
+import { Button } from './ui/Button';
+import { Input } from './ui/Input';
+import { Textarea } from './ui/Textarea';
+import { Label } from './ui/Label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
-import { Calendar } from './ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+} from './ui/Select';
+import { Calendar } from './ui/Calendar';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/Popover';
 import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 

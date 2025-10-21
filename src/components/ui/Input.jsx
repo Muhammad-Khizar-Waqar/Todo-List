@@ -1,16 +1,16 @@
 import * as React from "react"
-
+import { cn } from "../../lib/utils"
 
 /**
- * A forwardRef-compatible Input component built for React 19.
- * Fully compatible with shad/ui styling conventions.
+ * A forwardRef-compatible Input component
+ * Follows shadcn/ui + Tailwind conventions.
  */
 const Input = React.forwardRef(({ className, type = "text", ...props }, ref) => {
   return (
     <input
       ref={ref}
       type={type}
-      className={(
+      className={cn(
         "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm",
         "shadow-sm transition-colors",
         "file:border-0 file:bg-transparent file:text-sm file:font-medium",
