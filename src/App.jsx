@@ -1,12 +1,8 @@
-import React from 'react'
+import TodoApp from './components/TodoApp'
 
 const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello, Todo List!
-      </h1>
-    </div>
+    <TodoApp />
   )
 }
 
