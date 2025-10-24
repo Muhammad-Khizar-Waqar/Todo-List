@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+:root {
+  --primary-color: #000;
+  --secondary-color: #ffed4a;
+  --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}

@@ -1,155 +1,127 @@
-import {
-  forwardRef,
-  Fragment
-} from "react"
-import {
-  CaretSortIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-} from "@radix-ui/react-icons"
-import * as SelectPrimitive from "@radix-ui/react-select"
-import { cn } from "../../lib/utils"
+import React from "react";
+import * as SelectPrimitive from "@radix-ui/react-select";
+import { Check, ChevronDown } from "lucide-react";
 
-const Select = SelectPrimitive.Root
-const SelectGroup = SelectPrimitive.Group
-const SelectValue = SelectPrimitive.Value
+// Simple helper for classNames
+const cn = (...parts) => parts.filter(Boolean).join(" ");
 
-const SelectTrigger = forwardRef(function SelectTrigger({ className, children, ...props }, ref) {
+const variantClasses = {
+  black:
+    "bg-black/90 text-white border border-white/10 focus:ring-2 focus:ring-white/20",
+  white:
+    "bg-white text-slate-900 border border-slate-200 focus:ring-2 focus:ring-slate-300",
+};
+
+const triggerBase =
+  "flex w-full items-center justify-between rounded-md px-3 py-2 text-sm shadow-sm outline-none disabled:opacity-60 disabled:cursor-not-allowed focus:ring-2 transition-colors";
+
+export default function Select({
+  label,
+  description,
+  error,
+  variant = "white",
+  size = "md",
+  placeholder = "Select...",
+  options = [],
+  onValueChange,
+  value,
+  className,
+}) {
+  const hasError = Boolean(error);
+
   return (
-    <SelectPrimitive.Trigger
-      ref={ref}
-      className={cn(
-        "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background",
-        "placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring",
-        "disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
-        className
+    <div className="w-full">
+      {label && (
+        <label className="block text-sm font-medium mb-1">{label}</label>
       )}
-      {...props}
-    >
-      {children}
-      <SelectPrimitive.Icon asChild>
-        <CaretSortIcon className="h-4 w-4 opacity-50" />
-      </SelectPrimitive.Icon>
-    </SelectPrimitive.Trigger>
-  )
-})
 
-const SelectScrollUpButton = forwardRef(function SelectScrollUpButton({ className, ...props }, ref) {
-  return (
-    <SelectPrimitive.ScrollUpButton
-      ref={ref}
-      className={cn("flex cursor-default items-center justify-center py-1", className)}
-      {...props}
-    >
-      <ChevronUpIcon />
-    </SelectPrimitive.ScrollUpButton>
-  )
-})
-
-const SelectScrollDownButton = forwardRef(function SelectScrollDownButton({ className, ...props }, ref) {
-  return (
-    <SelectPrimitive.ScrollDownButton
-      ref={ref}
-      className={cn("flex cursor-default items-center justify-center py-1", className)}
-      {...props}
-    >
-      <ChevronDownIcon />
-    </SelectPrimitive.ScrollDownButton>
-  )
-})
-
-const SelectContent = forwardRef(function SelectContent(
-  { className, children, position = "popper", ...props },
-  ref
-) {
-  return (
-    <SelectPrimitive.Portal>
-      <SelectPrimitive.Content
-        ref={ref}
-        className={cn(
-          "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
-          "data-[state=open]:animate-in data-[state=closed]:animate-out",
-          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-          "data-[side=bottom]:slide-in-from-top-2",
-          "data-[side=left]:slide-in-from-right-2",
-          "data-[side=right]:slide-in-from-left-2",
-          "data-[side=top]:slide-in-from-bottom-2",
-          position === "popper" &&
-            "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
-          className
-        )}
-        position={position}
-        {...props}
-      >
-        <SelectScrollUpButton />
-        <SelectPrimitive.Viewport
+      <SelectPrimitive.Root value={value} onValueChange={onValueChange}>
+        <SelectPrimitive.Trigger
           className={cn(
-            "p-1",
-            position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+            triggerBase,
+            variantClasses[variant],
+            hasError ? "ring-1 ring-red-500 border-red-400" : "",
+            className
           )}
         >
-          {children}
-        </SelectPrimitive.Viewport>
-        <SelectScrollDownButton />
-      </SelectPrimitive.Content>
-    </SelectPrimitive.Portal>
-  )
-})
+          <SelectPrimitive.Value placeholder={placeholder} />
+          <SelectPrimitive.Icon>
+            <ChevronDown size={16} />
+          </SelectPrimitive.Icon>
+        </SelectPrimitive.Trigger>
 
-const SelectLabel = forwardRef(function SelectLabel({ className, ...props }, ref) {
-  return (
-    <SelectPrimitive.Label
-      ref={ref}
-      className={cn("px-2 py-1.5 text-sm font-semibold", className)}
-      {...props}
-    />
-  )
-})
+        <SelectPrimitive.Portal>
+          <SelectPrimitive.Content
+            className={cn(
+              "z-50 mt-1 overflow-hidden rounded-md border shadow-md",
+              variantClasses[variant]
+            )}
+          >
+            <SelectPrimitive.Viewport className="p-1">
+              {options.map((opt) => (
+                <SelectPrimitive.Item
+                  key={opt.value}
+                  value={opt.value}
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 text-sm cursor-pointer rounded-md outline-none select-none transition-colors",
+                    "data-[highlighted]:bg-slate-100 data-[state=checked]:font-medium"
+                  )}
+                >
+                  <SelectPrimitive.ItemText>{opt.label}</SelectPrimitive.ItemText>
+                  <SelectPrimitive.ItemIndicator className="ml-auto">
+                    <Check size={14} />
+                  </SelectPrimitive.ItemIndicator>
+                </SelectPrimitive.Item>
+              ))}
+            </SelectPrimitive.Viewport>
+          </SelectPrimitive.Content>
+        </SelectPrimitive.Portal>
+      </SelectPrimitive.Root>
 
-const SelectItem = forwardRef(function SelectItem({ className, children, ...props }, ref) {
-  return (
-    <SelectPrimitive.Item
-      ref={ref}
-      className={cn(
-        "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none",
-        "focus:bg-accent focus:text-accent-foreground",
-        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-        className
+      {description && (
+        <p className="mt-1 text-xs text-slate-500">{description}</p>
       )}
-      {...props}
-    >
-      <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-        <SelectPrimitive.ItemIndicator>
-          <CheckIcon className="h-4 w-4" />
-        </SelectPrimitive.ItemIndicator>
-      </span>
-      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-    </SelectPrimitive.Item>
-  )
-})
 
-const SelectSeparator = forwardRef(function SelectSeparator({ className, ...props }, ref) {
-  return (
-    <SelectPrimitive.Separator
-      ref={ref}
-      className={cn("-mx-1 my-1 h-px bg-muted", className)}
-      {...props}
-    />
-  )
-})
-
-export {
-  Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectLabel,
-  SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
-  SelectScrollDownButton,
+      {hasError && typeof error === "string" && (
+        <p className="mt-1 text-xs text-red-600">{error}</p>
+      )}
+    </div>
+  );
 }
+
+/*
+Usage example:
+
+import Select from "./Select";
+
+export default function Demo() {
+  const [value, setValue] = React.useState("");
+
+  const options = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "cherry", label: "Cherry" },
+  ];
+
+  return (
+    <div className="p-6 grid gap-4 max-w-md">
+      <Select
+        label="Fruit"
+        placeholder="Choose a fruit"
+        options={options}
+        value={value}
+        onValueChange={setValue}
+        variant="white"
+      />
+
+      <Select
+        label="Dark Mode Select"
+        options={options}
+        value={value}
+        onValueChange={setValue}
+        variant="black"
+      />
+    </div>
+  );
+}
+*/
