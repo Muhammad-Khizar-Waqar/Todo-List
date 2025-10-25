@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
 
@@ -21,7 +21,7 @@ const variantClasses = {
 const baseInputClasses =
   "flex items-center gap-2 rounded-md shadow-sm transition-colors duration-150 outline-none disabled:opacity-60 disabled:cursor-not-allowed";
 
-const Input = forwardRef((props, ref) => {
+export const Input = forwardRef((props, ref) => {
   const {
     label,
     description,
@@ -79,43 +79,3 @@ const Input = forwardRef((props, ref) => {
 });
 
 Input.displayName = "Input";
-
-export default Input;
-
-/*
-Usage example:
-
-import { FiSearch } from "react-icons/fi";
-import Input from "./Input";
-
-export default function Demo() {
-  return (
-    <div className="p-6 grid gap-4 max-w-md">
-      <Input label="Name" placeholder="Enter your name" />
-
-      <Input
-        label="Email"
-        placeholder="you@company.com"
-        variant="white"
-        size="lg"
-        description="We'll never share your email."
-      />
-
-      <Input
-        label="Search"
-        placeholder="Search..."
-        icon={<FiSearch />}
-        variant="black"
-        size="md"
-      />
-
-      <Input
-        label="Disabled"
-        placeholder="Can't touch this"
-        disabled
-        variant="black"
-      />
-    </div>
-  );
-}
-*/

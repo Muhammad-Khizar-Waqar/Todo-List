@@ -1,26 +1,22 @@
 import { forwardRef } from "react";
 
 const base =
-  "cursor-pointer  inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed";
+  "cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
 
 const sizeMap = {
-  sm: "px-2.5 py-1.5 text-sm",
-  md: "px-4 py-2 text-sm",
-  lg: "px-6 py-3 text-base",
-  ra: "px-12 py-2 text-sm  tracking-wide",
+  sm: "h-8 rounded-md px-3 text-xs",
+  md: "h-9 px-4 py-2",
+  lg: "h-10 rounded-md px-8",
+  icon: "h-9 w-9",
 };
 
 const variantMap = {
-  solid:
-    "bg-[var(--accent-9)] text-[var(--accent-12)] hover:bg-[var(--accent-10)] active:bg-[var(--accent-11)] ring-2 ring-transparent focus:ring-[var(--focus-8)]",
-  ghost:
-    "bg-transparent text-[var(--accent-11)] hover:bg-[var(--gray-2)] active:bg-[var(--gray-3)]",
-  subtle:
-    "bg-[var(--gray-3)] text-[var(--gray-12)] hover:bg-[var(--gray-4)] active:bg-[var(--gray-5)]",
-  black:
-    "bg-[var(--gray-12)] text-[var(--gray-4)] border hover:bg-[var(--gray-0)] hover:text-[var(--gray-12)] hover:border hover:border-[var(--gray-12)]",
-  destructive:
-    "bg-[var(--red-8)] text-[var(--red-12)] hover:bg-[var(--red-9)] active:bg-[var(--red-10)] focus:ring-[var(--focus-8)]",
+  default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+  destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+  outline: "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+  secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+  ghost: "hover:bg-accent hover:text-accent-foreground",
+  link: "text-primary underline-offset-4 hover:underline",
 };
 
 const Spinner = () => (
@@ -47,11 +43,11 @@ const Spinner = () => (
   </svg>
 );
 
-const Button = forwardRef(
+export const Button = forwardRef(
   (
     {
       children,
-      variant = "solid",
+      variant = "default",
       size = "md",
       className = "",
       icon,
@@ -81,26 +77,3 @@ const Button = forwardRef(
 );
 
 Button.displayName = "Button";
-
-export default Button;
-
-/*
-Usage examples:
-
-import "@radix-ui/themes/styles.css";
-import { Theme } from "@radix-ui/themes";
-import Button from "./ReusableButton";
-
-export default function App() {
-  return (
-    <Theme>
-      <div className="p-6 space-x-2">
-        <Button variant="solid">Primary</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="subtle">Subtle</Button>
-        <Button variant="destructive">Delete</Button>
-      </div>
-    </Theme>
-  );
-}
-*/
