@@ -56,7 +56,7 @@ export default function EditTodoModal({ open, onOpenChange, todo, onSave }) {
           <DialogTitle>{todo ? 'Edit Todo' : 'Create New Todo'}</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4 py-4">
+        <div className="space-y-4 p-4">
           <div className="space-y-2">
             <Label htmlFor="title">Title *</Label>
             <Input
@@ -94,12 +94,15 @@ export default function EditTodoModal({ open, onOpenChange, todo, onSave }) {
           </div>
 
           <div className="space-y-2">
-            <Label>Due Date</Label>
-            <Popover>
+            <div className="mb-0">
+              <Label>Due Date</Label>
+            </div>
+
+            <Popover >
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
-                  className="w-full justify-start text-left font-normal"
+                  className="w-full justify-start text-left font-normal gap-4"
                   icon={<CalendarIcon />}
                 >
                   {/* <CalendarIcon className="mr-2 h-4 w-4" /> */}
@@ -118,11 +121,11 @@ export default function EditTodoModal({ open, onOpenChange, todo, onSave }) {
           </div>
         </div>
 
-        <div className="flex justify-end gap-3">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+        <div className="flex justify-end gap-3 p-4">
+          <Button variant="secondary" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button onClick={handleSave} disabled={!title.trim()}>
+          <Button variant="destructive" onClick={handleSave} disabled={!title.trim()}>
             {todo ? 'Save Changes' : 'Create Todo'}
           </Button>
         </div>

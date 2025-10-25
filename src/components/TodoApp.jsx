@@ -115,10 +115,11 @@ export default function TodoApp() {
             </div>
             <Button
               onClick={handleAddClick}
-              size="lg"
-              className="shadow-lg hover:shadow-xl transition-shadow"
+              size="md"
+              className="bg-black text-white shadow-lg hover:shadow-xl transition-shadow"
+              variant="solid"
+              icon={<Plus className="w-5 h-5 mr-2" />}
             >
-              <Plus className="w-5 h-5 mr-2" />
               Add Todo
             </Button>
           </div>
