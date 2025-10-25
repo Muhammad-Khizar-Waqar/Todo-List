@@ -22,7 +22,6 @@ const saveState = (state) => {
         };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
     } catch (_e) {
-        // ignore
         console.error("Set State Failed to save state:", _e);
     }
 };
